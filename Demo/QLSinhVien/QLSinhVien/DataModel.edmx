@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Ql_SinhVienModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="diemdanh">
+          <Key>
+            <PropertyRef Name="madiemdanh" />
+          </Key>
+          <Property Name="madiemdanh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mahocsinh_hoatdong" Type="int" Nullable="false" />
+          <Property Name="ngaydiemdanh" Type="date" Nullable="false" />
+          <Property Name="comat" Type="bit" Nullable="false" />
+          <Property Name="denmuon" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="hoatdong">
+          <Key>
+            <PropertyRef Name="mahoatdong" />
+          </Key>
+          <Property Name="mahoatdong" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ten" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ngaybatdau" Type="date" Nullable="false" />
+          <Property Name="ngayketthuc" Type="date" Nullable="false" />
+          <Property Name="soluongtoida" Type="int" />
+          <Property Name="mota" Type="nvarchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="hocsinh_hoatdong">
+          <Key>
+            <PropertyRef Name="mahs_hd" />
+          </Key>
+          <Property Name="mahs_hd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mahocsinh" Type="int" Nullable="false" />
+          <Property Name="mahoatdong" Type="int" Nullable="false" />
+          <Property Name="ngaydangky" Type="date" Nullable="false" />
+          <Property Name="dathamgia" Type="bit" Nullable="false" />
+          <Property Name="ngaythamgia" Type="date" />
+        </EntityType>
+        <EntityType Name="nguoidung">
+          <Key>
+            <PropertyRef Name="manguoidung" />
+          </Key>
+          <Property Name="manguoidung" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="hoten" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="tendangnhap" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="matkhau" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="lahocsinh" Type="bit" Nullable="false" />
+          <Property Name="bikhoa" Type="bit" Nullable="false" />
+          <Property Name="tenlop" Type="nvarchar" MaxLength="255" />
+          <Property Name="cccd" Type="varchar" MaxLength="255" />
+          <Property Name="gioitinh" Type="bit" Nullable="false" />
+          <Property Name="ngaysinh" Type="date" Nullable="false" />
+          <Property Name="quocgia" Type="nvarchar" MaxLength="255" />
+          <Property Name="diachi" Type="nvarchar" MaxLength="255" />
+          <Property Name="sdt" Type="varchar" MaxLength="255" />
+          <Property Name="quoctich" Type="nvarchar" MaxLength="255" />
+          <Property Name="chuyennganh" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__diemdanh__mahocs__31EC6D26">
+          <End Role="hocsinh_hoatdong" Type="Self.hocsinh_hoatdong" Multiplicity="1" />
+          <End Role="diemdanh" Type="Self.diemdanh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hocsinh_hoatdong">
+              <PropertyRef Name="mahs_hd" />
+            </Principal>
+            <Dependent Role="diemdanh">
+              <PropertyRef Name="mahocsinh_hoatdong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__hocsinh_h__mahoa__2E1BDC42">
+          <End Role="hoatdong" Type="Self.hoatdong" Multiplicity="1" />
+          <End Role="hocsinh_hoatdong" Type="Self.hocsinh_hoatdong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hoatdong">
+              <PropertyRef Name="mahoatdong" />
+            </Principal>
+            <Dependent Role="hocsinh_hoatdong">
+              <PropertyRef Name="mahoatdong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__hocsinh_h__mahoc__2D27B809">
+          <End Role="nguoidung" Type="Self.nguoidung" Multiplicity="1" />
+          <End Role="hocsinh_hoatdong" Type="Self.hocsinh_hoatdong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nguoidung">
+              <PropertyRef Name="manguoidung" />
+            </Principal>
+            <Dependent Role="hocsinh_hoatdong">
+              <PropertyRef Name="mahocsinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Ql_SinhVienModelStoreContainer">
+          <EntitySet Name="diemdanh" EntityType="Self.diemdanh" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hoatdong" EntityType="Self.hoatdong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hocsinh_hoatdong" EntityType="Self.hocsinh_hoatdong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="nguoidung" EntityType="Self.nguoidung" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__diemdanh__mahocs__31EC6D26" Association="Self.FK__diemdanh__mahocs__31EC6D26">
+            <End Role="hocsinh_hoatdong" EntitySet="hocsinh_hoatdong" />
+            <End Role="diemdanh" EntitySet="diemdanh" />
+          </AssociationSet>
+          <AssociationSet Name="FK__hocsinh_h__mahoa__2E1BDC42" Association="Self.FK__hocsinh_h__mahoa__2E1BDC42">
+            <End Role="hoatdong" EntitySet="hoatdong" />
+            <End Role="hocsinh_hoatdong" EntitySet="hocsinh_hoatdong" />
+          </AssociationSet>
+          <AssociationSet Name="FK__hocsinh_h__mahoc__2D27B809" Association="Self.FK__hocsinh_h__mahoc__2D27B809">
+            <End Role="nguoidung" EntitySet="nguoidung" />
+            <End Role="hocsinh_hoatdong" EntitySet="hocsinh_hoatdong" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Ql_SinhVienModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="diemdanh">
+          <Key>
+            <PropertyRef Name="madiemdanh" />
+          </Key>
+          <Property Name="madiemdanh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mahocsinh_hoatdong" Type="Int32" Nullable="false" />
+          <Property Name="ngaydiemdanh" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="comat" Type="Boolean" Nullable="false" />
+          <Property Name="denmuon" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="hocsinh_hoatdong" Relationship="Self.FK__diemdanh__mahocs__31EC6D26" FromRole="diemdanh" ToRole="hocsinh_hoatdong" />
+        </EntityType>
+        <EntityType Name="hoatdong">
+          <Key>
+            <PropertyRef Name="mahoatdong" />
+          </Key>
+          <Property Name="mahoatdong" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ngaybatdau" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ngayketthuc" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="soluongtoida" Type="Int32" />
+          <Property Name="mota" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="hocsinh_hoatdong" Relationship="Self.FK__hocsinh_h__mahoa__2E1BDC42" FromRole="hoatdong" ToRole="hocsinh_hoatdong" />
+        </EntityType>
+        <EntityType Name="hocsinh_hoatdong">
+          <Key>
+            <PropertyRef Name="mahs_hd" />
+          </Key>
+          <Property Name="mahs_hd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mahocsinh" Type="Int32" Nullable="false" />
+          <Property Name="mahoatdong" Type="Int32" Nullable="false" />
+          <Property Name="ngaydangky" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dathamgia" Type="Boolean" Nullable="false" />
+          <Property Name="ngaythamgia" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="diemdanhs" Relationship="Self.FK__diemdanh__mahocs__31EC6D26" FromRole="hocsinh_hoatdong" ToRole="diemdanh" />
+          <NavigationProperty Name="hoatdong" Relationship="Self.FK__hocsinh_h__mahoa__2E1BDC42" FromRole="hocsinh_hoatdong" ToRole="hoatdong" />
+          <NavigationProperty Name="nguoidung" Relationship="Self.FK__hocsinh_h__mahoc__2D27B809" FromRole="hocsinh_hoatdong" ToRole="nguoidung" />
+        </EntityType>
+        <EntityType Name="nguoidung">
+          <Key>
+            <PropertyRef Name="manguoidung" />
+          </Key>
+          <Property Name="manguoidung" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="hoten" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tendangnhap" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="matkhau" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lahocsinh" Type="Boolean" Nullable="false" />
+          <Property Name="bikhoa" Type="Boolean" Nullable="false" />
+          <Property Name="tenlop" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="cccd" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="gioitinh" Type="Boolean" Nullable="false" />
+          <Property Name="ngaysinh" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="quocgia" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="diachi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="sdt" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="quoctich" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="chuyennganh" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="hocsinh_hoatdong" Relationship="Self.FK__hocsinh_h__mahoc__2D27B809" FromRole="nguoidung" ToRole="hocsinh_hoatdong" />
+        </EntityType>
+        <Association Name="FK__diemdanh__mahocs__31EC6D26">
+          <End Role="hocsinh_hoatdong" Type="Self.hocsinh_hoatdong" Multiplicity="1" />
+          <End Role="diemdanh" Type="Self.diemdanh" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hocsinh_hoatdong">
+              <PropertyRef Name="mahs_hd" />
+            </Principal>
+            <Dependent Role="diemdanh">
+              <PropertyRef Name="mahocsinh_hoatdong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__hocsinh_h__mahoa__2E1BDC42">
+          <End Role="hoatdong" Type="Self.hoatdong" Multiplicity="1" />
+          <End Role="hocsinh_hoatdong" Type="Self.hocsinh_hoatdong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hoatdong">
+              <PropertyRef Name="mahoatdong" />
+            </Principal>
+            <Dependent Role="hocsinh_hoatdong">
+              <PropertyRef Name="mahoatdong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__hocsinh_h__mahoc__2D27B809">
+          <End Role="nguoidung" Type="Self.nguoidung" Multiplicity="1" />
+          <End Role="hocsinh_hoatdong" Type="Self.hocsinh_hoatdong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nguoidung">
+              <PropertyRef Name="manguoidung" />
+            </Principal>
+            <Dependent Role="hocsinh_hoatdong">
+              <PropertyRef Name="mahocsinh" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Ql_SinhVienEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="diemdanhs" EntityType="Self.diemdanh" />
+          <EntitySet Name="hoatdongs" EntityType="Self.hoatdong" />
+          <EntitySet Name="hocsinh_hoatdong" EntityType="Self.hocsinh_hoatdong" />
+          <EntitySet Name="nguoidungs" EntityType="Self.nguoidung" />
+          <AssociationSet Name="FK__diemdanh__mahocs__31EC6D26" Association="Self.FK__diemdanh__mahocs__31EC6D26">
+            <End Role="hocsinh_hoatdong" EntitySet="hocsinh_hoatdong" />
+            <End Role="diemdanh" EntitySet="diemdanhs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__hocsinh_h__mahoa__2E1BDC42" Association="Self.FK__hocsinh_h__mahoa__2E1BDC42">
+            <End Role="hoatdong" EntitySet="hoatdongs" />
+            <End Role="hocsinh_hoatdong" EntitySet="hocsinh_hoatdong" />
+          </AssociationSet>
+          <AssociationSet Name="FK__hocsinh_h__mahoc__2D27B809" Association="Self.FK__hocsinh_h__mahoc__2D27B809">
+            <End Role="nguoidung" EntitySet="nguoidungs" />
+            <End Role="hocsinh_hoatdong" EntitySet="hocsinh_hoatdong" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Ql_SinhVienModelStoreContainer" CdmEntityContainer="Ql_SinhVienEntities">
+          <EntitySetMapping Name="diemdanhs">
+            <EntityTypeMapping TypeName="Ql_SinhVienModel.diemdanh">
+              <MappingFragment StoreEntitySet="diemdanh">
+                <ScalarProperty Name="madiemdanh" ColumnName="madiemdanh" />
+                <ScalarProperty Name="mahocsinh_hoatdong" ColumnName="mahocsinh_hoatdong" />
+                <ScalarProperty Name="ngaydiemdanh" ColumnName="ngaydiemdanh" />
+                <ScalarProperty Name="comat" ColumnName="comat" />
+                <ScalarProperty Name="denmuon" ColumnName="denmuon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hoatdongs">
+            <EntityTypeMapping TypeName="Ql_SinhVienModel.hoatdong">
+              <MappingFragment StoreEntitySet="hoatdong">
+                <ScalarProperty Name="mahoatdong" ColumnName="mahoatdong" />
+                <ScalarProperty Name="ten" ColumnName="ten" />
+                <ScalarProperty Name="ngaybatdau" ColumnName="ngaybatdau" />
+                <ScalarProperty Name="ngayketthuc" ColumnName="ngayketthuc" />
+                <ScalarProperty Name="soluongtoida" ColumnName="soluongtoida" />
+                <ScalarProperty Name="mota" ColumnName="mota" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hocsinh_hoatdong">
+            <EntityTypeMapping TypeName="Ql_SinhVienModel.hocsinh_hoatdong">
+              <MappingFragment StoreEntitySet="hocsinh_hoatdong">
+                <ScalarProperty Name="mahs_hd" ColumnName="mahs_hd" />
+                <ScalarProperty Name="mahocsinh" ColumnName="mahocsinh" />
+                <ScalarProperty Name="mahoatdong" ColumnName="mahoatdong" />
+                <ScalarProperty Name="ngaydangky" ColumnName="ngaydangky" />
+                <ScalarProperty Name="dathamgia" ColumnName="dathamgia" />
+                <ScalarProperty Name="ngaythamgia" ColumnName="ngaythamgia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="nguoidungs">
+            <EntityTypeMapping TypeName="Ql_SinhVienModel.nguoidung">
+              <MappingFragment StoreEntitySet="nguoidung">
+                <ScalarProperty Name="manguoidung" ColumnName="manguoidung" />
+                <ScalarProperty Name="hoten" ColumnName="hoten" />
+                <ScalarProperty Name="tendangnhap" ColumnName="tendangnhap" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="matkhau" ColumnName="matkhau" />
+                <ScalarProperty Name="lahocsinh" ColumnName="lahocsinh" />
+                <ScalarProperty Name="bikhoa" ColumnName="bikhoa" />
+                <ScalarProperty Name="tenlop" ColumnName="tenlop" />
+                <ScalarProperty Name="cccd" ColumnName="cccd" />
+                <ScalarProperty Name="gioitinh" ColumnName="gioitinh" />
+                <ScalarProperty Name="ngaysinh" ColumnName="ngaysinh" />
+                <ScalarProperty Name="quocgia" ColumnName="quocgia" />
+                <ScalarProperty Name="diachi" ColumnName="diachi" />
+                <ScalarProperty Name="sdt" ColumnName="sdt" />
+                <ScalarProperty Name="quoctich" ColumnName="quoctich" />
+                <ScalarProperty Name="chuyennganh" ColumnName="chuyennganh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

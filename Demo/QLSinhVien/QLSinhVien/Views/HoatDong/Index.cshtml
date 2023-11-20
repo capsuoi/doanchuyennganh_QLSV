@@ -1,0 +1,73 @@
+﻿@model hoatdong[]
+@{
+    ViewBag.Title = "Index";
+    var stt = 1;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5>Danh sách hoạt động</h5>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <form>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input name="timkiem" value="@ViewBag.TimKiem" placeholder="Tìm kiếm..." class="form-control" />
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-primary">Tìm kiếm</button>
+                        <a href="@Url.Action("Them", "HoatDong")" class="btn btn-outline-success"><span class="glyphicon glyphicon-plus"></span>Thêm hoạt động</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th>Tên hoạt động</th>
+                        <th class="text-center">Thời gian</th>
+                        <th class="text-center">Tham gia</th>
+                        <th class="text-center">Chờ phê duyệt</th>
+                        <th style="width: 200px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@stt</td>
+                            <td><h6 style="max-width: 200px; overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis">@item.ten</h6></td>
+                            <td class="text-center">@item.ngaybatdau.ToString("dd/MM/yyyy") - @item.ngayketthuc.ToString("dd/MM/yyyy")</td>
+                            <td class="text-center">@item.hocsinh_hoatdong.Count(x => x.dathamgia)@(item.soluongtoida.HasValue ? $"/{item.soluongtoida}" : "") người</td>
+                            <td class="text-center">@item.hocsinh_hoatdong.Count(x => !x.dathamgia) người</td>
+                            <td>
+                                <a href="@Url.Action("Xoa", "HoatDong", new {id = item.mahoatdong})" class="btn btn-sm btn-remove btn-outline-danger">Xóa</a>
+                                <a href="@Url.Action("Sua", "HoatDong", new {id = item.mahoatdong})" class="btn btn-sm btn-outline-primary">Sửa</a>
+                                <a href="@Url.Action("Xem", "HoatDong", new {id = item.mahoatdong})" class="btn btn-sm btn-outline-success">Xem</a>
+                            </td>
+                        </tr>
+                        stt++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @if (ViewBag.Message != "")
+    {
+        <script>
+            alert('@Html.Raw(ViewBag.Message)');
+        </script>
+    }
+    <script>
+        $(document).on('click', '.btn-remove', function (e) {
+            if (!confirm('Bạn có chắc muốn xóa hoạt động và các thông tin liên quan đến hoạt động này?'))
+                e.preventDefault();
+        });
+    </script>
+}

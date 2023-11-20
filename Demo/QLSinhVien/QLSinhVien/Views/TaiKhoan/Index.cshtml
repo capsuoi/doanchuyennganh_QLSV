@@ -1,0 +1,75 @@
+﻿@model nguoidung[]
+@{
+    var stt = 1;
+    ViewBag.Title = "Danh sách tài khoản";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="m-0">Danh sách tài khoản</h5>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <form>
+                <div class="row">
+                    <div class="col-md-4">
+                        <input name="timkiem" value="@ViewBag.TimKiem" placeholder="Tìm kiếm..." class="form-control" />
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-outline-primary">Tìm kiếm</button>
+                        <a href="@Url.Action("Them", "TaiKhoan")" class="btn btn-outline-success"><span class="glyphicon glyphicon-plus"></span>Thêm tài khoản</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th>Mã</th>
+                        <th>Tên</th>
+                        <th class="text-center">Vai trò</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Lớp</th>
+                        <th>Ngành</th>
+                        <th style="width: 150px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center">@stt</td>
+                            <td><h6 style="max-width: 200px; overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis">@item.tendangnhap</h6></td>
+                            <td><h6 style="max-width: 200px; overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis">@item.hoten</h6></td>
+                            <td class="text-center">@(item.lahocsinh ? "Sinh viên" : "Giảng viên")</td>
+                            <td class="text-center">@item.email</td>
+                            <td class="text-center">@item.tenlop</td>
+                            <td><h6 style="max-width: 200px; overflow: hidden; text-wrap: nowrap; text-overflow: ellipsis; text-align: center">@item.chuyennganh</h6></td>
+                            <td>
+                                <a href="@Url.Action("Xoa", "TaiKhoan", new {id = item.manguoidung})" class="btn btn-sm btn-remove btn-outline-danger">Xóa</a>
+                                <a href="@Url.Action("Sua", "TaiKhoan", new {id = item.manguoidung})" class="btn btn-sm btn-outline-primary">Sửa</a>
+                            </td>
+                        </tr>
+                        stt++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @if (ViewBag.Message != "")
+    {
+        <script>
+            alert('@Html.Raw(ViewBag.Message)');
+        </script>
+    }
+    <script>
+        $(document).on('click', '.btn-remove', function (e) {
+            if (!confirm('Bạn có chắc muốn xóa tài khoản này?'))
+                e.preventDefault();
+        });
+    </script>
+}

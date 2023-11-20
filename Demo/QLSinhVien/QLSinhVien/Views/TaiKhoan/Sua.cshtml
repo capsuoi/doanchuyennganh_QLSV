@@ -1,0 +1,94 @@
+﻿@model nguoidung
+@{
+    ViewBag.Title = "Chỉnh sửa tài khoản";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h4 class="text-center">@Model.hoten</h4>
+            </div>
+            <div class="card-body">
+                <div class="py-3">
+                    <strong>Mã:</strong> @Model.tendangnhap
+                </div>
+                <div class="border-top py-3">
+                    <strong>Giới tính: </strong> @(Model.gioitinh ? "Nam" : "Nữ")
+                </div>
+                <div class="border-top py-3">
+                    <strong>Ngày sinh: </strong> @Model.ngaysinh.ToString("dd/MM/yyyy");
+                </div>
+                <div class="border-top py-3">
+                    <strong>Lớp: </strong> @Model.tenlop
+                </div>
+                <div class="border-top py-3">
+                    <strong>Ngành: </strong> @Model.chuyennganh
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="m-0">Chỉnh sửa tài khoản</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="row">
+                        <div class="col-md-5 form-group">
+                            <label>Mã:</label>
+                            <input class="form-control" name="tendangnhap" value="@Model.tendangnhap" placeholder="Mã..." required readonly/>
+                        </div>
+                        <div class="col-md-7 form-group">
+                            <label>Họ và tên:</label>
+                            <input class="form-control" name="hoten" value="@Model.hoten" placeholder="Họ và tên..." required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>Email:</label>
+                            <input class="form-control" name="email" value="@Model.email" placeholder="email..." required />
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Giới tính</label>
+                            <select class="form-control" name="gioitinh" required>
+                                <option value="true" @(Model.gioitinh ? "selected" : "")>- Nam - </option>
+                                <option value="false" @(!Model.gioitinh ? "selected" : "")>- Nữ - </option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 form-group">
+                            <label>Ngày sinh:</label>
+                            <input type="date" class="form-control" name="ngaysinh" value="@Model.ngaysinh.ToString("yyyy-MM-dd")" placeholder="Ngày sinh..." required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7 form-group">
+                            <input type="radio" name="laHocSinh" value="true" @(Model.lahocsinh ? "checked" : "") /> <span>Là Học sinh</span>
+                            <input type="radio" name="laHocSinh" value="false" style="margin-left: 15px;" @(!Model.lahocsinh ? "checked" : "")/> <span>Là Giáo viên</span>
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <input type="checkbox" class="form-group" name="bikhoa" value="true" @(Model.bikhoa ? "checked" : "")/> <span>Khóa tài khoản</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 form-group">
+                            <label>Lớp:</label>
+                            <input class="form-control" name="tenlop" placeholder="Lớp..." required value="@Model.tenlop"/>
+                        </div>
+                        <div class="col-md-7 form-group">
+                            <label>Chuyên ngành:</label>
+                            <input class="form-control" name="chuyennganh" placeholder="Chuyên ngành..." required value="@Model.chuyennganh"/>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-12 text-center">
+                            <a class="btn btn-sm btn-outline-danger" href="@Url.Action("Index", "TaiKhoan")">Trở lại</a>
+                            <button class="btn btn-sm btn-primary">Lưu tài khoản</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

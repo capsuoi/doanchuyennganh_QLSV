@@ -1,0 +1,50 @@
+﻿@model hoatdong[]
+@{
+    ViewBag.Title = "Đăng ký hoạt động";
+    var stt = 1;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="m-0">Đăng ký hoạt động</h4>
+    </div>
+    <div class="card-body">
+        <ul style="padding: 0; list-style: none">
+            @foreach (var item in Model)
+            {
+                <li class="even-item">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>@stt. @item.ten</h5>
+                            <div class="pl-3">
+                                <p>
+                                    @Html.Raw(item.mota)
+                                </p>
+                                <div class="row">
+                                    <div class="col">
+                                        <span style="font-size: 0.9rem">Thời gian từ: </span><label>@item.ngaybatdau.ToString("dd/MM/yyyy") - @item.ngayketthuc.ToString("dd/MM/yyyy")</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span style="font-size: 0.9rem">Tối đa: </span><label class="text-success">@item.hocsinh_hoatdong.Count(x => x.dathamgia)/@item.soluongtoida người</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="@Url.Action("DangKyHoatDong", "HoatDong", new {id = item.mahoatdong})">Đăng ký tham gia</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@section Scripts{
+    @if (ViewBag.Message != "")
+    {
+        <script>
+            alert('@Html.Raw(ViewBag.Message)')
+        </script>
+    }
+}

@@ -1,0 +1,144 @@
+﻿@model hoatdong
+@{
+    ViewBag.Title = Model.ten;
+    var stt = 1;
+
+
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="m-0">@Model.ten</h5>
+    </div>
+    <div class="card-body">
+        <div class="mb-0">
+            <p>@Html.Raw(Model.mota)</p>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                Diễn ra từ <strong>@Model.ngaybatdau.ToString("dd/MM/yyyy") - @Model.ngayketthuc.ToString("dd/MM/yyyy")</strong>
+            </div>
+            <div class="col-md-6">
+                Có <strong>@Model.hocsinh_hoatdong.Count(x => x.dathamgia) @(Model.soluongtoida.HasValue ? $"/{Model.soluongtoida}" : "")</strong> người tham gia
+            </div>
+        </div>
+        <hr />
+        <div class="mt-2">
+            <h5 class="text-center">Danh sách sinh viên</h5>
+            @if (Model.ngaybatdau.Date > DateTime.Now)
+            {
+                <form method="post" action="@Url.Action("Duyet", "HoatDong")">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Mã SV</th>
+                                    <th>Tên</th>
+                                    <th>Lớp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.hocsinh_hoatdong.Where(x => !x.dathamgia))
+                                {
+                                    <tr>
+                                        <td>
+                                            <input class="cbx-sinhvien" name="ma" type="checkbox" checked value="@item.mahocsinh" />
+                                            @stt
+                                        </td>
+                                        <td>@item.nguoidung.tendangnhap</td>
+                                        <td>@item.nguoidung.hoten</td>
+                                        <td>@item.nguoidung.tenlop</td>
+                                    </tr>
+                                    stt++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <input name="id" style="display: none;" value="@Model.mahoatdong" />
+                        <button class="btn-primary">Duyệt</button>
+                    </div>
+                </form>
+            }
+            else
+            {
+
+                <form action="@Url.Action("DiemDanh", "HoatDong", new {id = Model.mahoatdong})" method="post">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">STT</th>
+                                    <th rowspan="2">Mã SV</th>
+                                    <th rowspan="2">Tên</th>
+                                    <th rowspan="2">Lớp</th>
+                                    <th colspan="3" class="text-center">Thống kê</th>
+                                    <th rowspan="2">Điểm danh</th>
+                                </tr>
+                                <tr>
+                                    <th class="text-center">Có mặt</th>
+                                    <th class="text-center">Vắng mặt</th>
+                                    <th class="text-center">Đến muộn</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.hocsinh_hoatdong.Where(x => x.dathamgia))
+                                {
+                                    <tr>
+                                        <td>
+                                            @stt
+                                            <input style="display: none" name="hocsinh[@(stt-1)][ma]" value="@item.mahocsinh" />
+                                        </td>
+                                        <td>@item.nguoidung.tendangnhap</td>
+                                        <td>@item.nguoidung.hoten</td>
+                                        <td>@item.nguoidung.tenlop</td>
+                                        <td class="text-center text-success">@item.diemdanhs.Count(x => x.comat)</td>
+                                        <td class="text-center text-danger">@item.diemdanhs.Count(x => !x.comat) </td>
+                                        <td class="text-center text-warning">@item.diemdanhs.Count(x => x.denmuon)</td>
+                                        <td>
+                                            @{
+                                                var diemdanh = item.diemdanhs.FirstOrDefault(x => x.ngaydiemdanh.Date == DateTime.Now.Date);
+                                                if (diemdanh != null)
+                                                {
+                                                    <input type="radio" name="hocsinh[@(stt-1)][status]" value="yes" @(diemdanh.comat ? "checked" : "") /> <span>Có mặt</span>
+                                                    <input type="radio" name="hocsinh[@(stt-1)][status]" value="no" class="ml-2" @(!diemdanh.comat ? "checked" : "")/> <span>Văng mặt</span>
+                                                    <input type="radio" name="hocsinh[@(stt-1)][status]" value="late" class="ml-2" @(diemdanh.denmuon ? "checked" : "")/> <span>Đến muộn</span>
+                                                }
+                                                else
+                                                {
+                                                    <input type="radio" name="hocsinh[@(stt-1)][status]" value="yes" checked /> <span>Có mặt</span>
+                                                    <input type="radio" name="hocsinh[@(stt-1)][status]" value="no" class="ml-2" /> <span>Văng mặt</span>
+                                                    <input type="radio" name="hocsinh[@(stt-1)][status]" value="late" class="ml-2" /> <span>Đến muộn</span>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                    stt++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn-primary">Điểm danh</button>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).on('change', '.cbx-sinhvien', function (e) {
+            $.each($('.cbx-sinhvien:checked'), function (i, item) {
+                $(item).attr('name', 'hocsinh[' + i + ']');
+            });
+        });
+    </script>
+    @if (ViewBag.Message != "")
+    {
+        <script>
+            alert('@Html.Raw(ViewBag.Message)');
+        </script>
+    }
+}

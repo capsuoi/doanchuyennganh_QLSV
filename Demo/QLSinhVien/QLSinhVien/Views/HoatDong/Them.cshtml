@@ -1,0 +1,54 @@
+﻿@model hoatdong
+@{
+    ViewBag.Title = "Thêm hoạt động mới";
+}
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="m-0">Thêm hoạt động mới</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="row">
+                        <div class="col-md-8 form-group">
+                            <label>Tên hoạt động<span style="color: red"></span></label>
+                            <input class="form-control" name="ten" value="@Model.ten" placeholder="Tên hoạt động..." required />
+                            @Html.ValidationMessageFor(x => x.ten, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Số người tham gia<span style="color: red"></span></label>
+                            <input type="number" class="form-control" name="soluongtoida" value="@Model.soluongtoida" placeholder="Số người tham gia..." required min="1" />
+                            @Html.ValidationMessageFor(x => x.soluongtoida, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label>Ngày bắt đầu<span style="color: red"></span></label>
+                            <input type="date" class="form-control" name="ngaybatdau" value="@Model.ngaybatdau.ToString("yyyy-MM-dd")" placeholder="Ngày bắt đầu..." required />
+                            @Html.ValidationMessageFor(x => x.ngaybatdau, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label>Ngày kết thúc<span style="color: red"></span></label>
+                            <input type="date" class="form-control" name="ngayketthuc" value="@Model.ngayketthuc.ToString("yyyy-MM-dd")" placeholder="Ngày kết thúc..." required />
+                            @Html.ValidationMessageFor(x => x.ngayketthuc, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 form-group">
+                            <textarea class="form-control" rows="5" name="mota" required>@Model.mota</textarea>
+                            @Html.ValidationMessageFor(x => x.mota, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <a href="@Url.Action("Index", "HoatDong")" class="btn btn-sm btn-outline-danger">Trở về</a>
+                            <button class="btn btn-sm btn-outline-success">Lưu hoạt động</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

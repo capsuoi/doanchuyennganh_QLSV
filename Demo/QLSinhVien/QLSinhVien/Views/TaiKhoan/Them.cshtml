@@ -1,0 +1,77 @@
+﻿@model nguoidung
+@{
+    ViewBag.Title = "Tạo tài khoản mới";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="m-0">Tạo tài khoản mới</h5>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label>Mã:</label>
+                    <input class="form-control" name="tendangnhap" value="@Model.tendangnhap" placeholder="Mã..." required />
+                    @Html.ValidationMessageFor(x => x.tendangnhap, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Họ và tên:</label>
+                    <input class="form-control" name="hoten" value="@Model.hoten" placeholder="Họ và tên..." required />
+                    @Html.ValidationMessageFor(x => x.hoten, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Ngày sinh:</label>
+                    <input type="date" class="form-control" value="@Model.ngaysinh.ToString("yyyy-MM-dd")" name="ngaysinh" placeholder="Ngày sinh..." required />
+                    @Html.ValidationMessageFor(x => x.ngaysinh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label>Email</label>
+                    <input class="form-control" name="email" type="email" placeholder="Email..." required />
+                    @Html.ValidationMessageFor(x => x.email, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Giới tính</label>
+                    <select class="form-control" name="gioitinh" required>
+                        <option value="true" @(Model.gioitinh ? "selected" : "")>- Nam - </option>
+                        <option value="false" @(!Model.gioitinh ? "selected" : "")>- Nữ - </option>
+                    </select>
+                </div>
+                <div class="col-md-4 form-group">
+                    <label>Mật khẩu</label>
+                    <input class="form-control" name="matkhau" type="password" placeholder="Mật khẩu..." required />
+                    @Html.ValidationMessageFor(x => x.matkhau, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 form-group">
+                    <input type="radio" name="laHocSinh" value="true" @(Model.lahocsinh ? "checked" : "") /> <span>Là Học sinh</span>
+                    <input type="radio" name="laHocSinh" value="false" style="margin-left: 15px;" @(!Model.lahocsinh ? "checked" : "") /> <span>Là Giáo viên</span>
+                </div>
+                <div class="col-md-4 form-group">
+                    <input type="checkbox" class="form-group" name="bikhoa" value="true" @(Model.bikhoa ? "checked" : "") /> <span>Khóa tài khoản</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label>Lớp:</label>
+                    <input class="form-control" name="tenlop" value="@Model.tenlop" placeholder="Lớp..." required />
+                    @Html.ValidationMessageFor(x => x.tenlop, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-8 form-group">
+                    <label>Chuyên ngành:</label>
+                    <input class="form-control" name="chuyennganh" value="@Model.chuyennganh" placeholder="Chuyên ngành..." required />
+                    @Html.ValidationMessageFor(x => x.chuyennganh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div>
+                <div class="col-md-12 text-center">
+                    <a class="btn btn-sm btn-outline-danger" href="@Url.Action("Index", "TaiKhoan")">Trở lại</a>
+                    <button class="btn btn-sm btn-primary">Lưu tài khoản</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

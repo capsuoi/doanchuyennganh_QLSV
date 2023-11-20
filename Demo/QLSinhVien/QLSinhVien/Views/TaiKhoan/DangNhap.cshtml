@@ -1,0 +1,41 @@
+﻿@model QLSinhVien.Models.LoginModel
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewBag.Title = "DangNhap";
+}
+
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+            <div>
+                <h3>Đăng nhập</h3>
+                <span style="font-size: 0.8rem">Vui lòng nhập thông tin của bạn</span>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><span class="glyphicon glyphicon-user"></span></div>
+                    </div>
+                    <input type="text" name="username" value="@Model.Username" class="form-control" placeholder="Mã cá nhân" style="width: 250px">
+                </div>
+                <div>@Html.ValidationMessageFor(x => x.Username, "", new { @class = "text-danger" })</div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><span class="glyphicon glyphicon-lock"></span></div>
+                    </div>
+                    <input type="password" name="password" class="form-control" placeholder="Mật khẩu" style="width: 250px">
+                </div>
+            </div>
+            <div style="display: flex; width: 100%;">
+                <div style="flex-grow: 1">
+                    <a href="#">Quên mật khẩu</a>
+                </div>
+                <div style="flex-grow: 1; text-align: right">
+                    <button class="btn btn-sm btn-success">Đăng nhập</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

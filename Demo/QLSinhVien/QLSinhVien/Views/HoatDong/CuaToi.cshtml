@@ -1,0 +1,50 @@
+﻿@model List<hocsinh_hoatdong>
+@{
+    ViewBag.Title = "Hoạt động của tôi";
+    var stt = 1;
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="m-0">Hoạt động của tôi</h4>
+    </div>
+    <div class="card-body">
+        <ul style="padding: 0; list-style: none">
+            @foreach (var item in Model)
+            {
+                <li class="even-item">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>
+                                @stt.
+                                <a href="@Url.Action("DiemDanhCuaToi", "HoatDong", new { id = item.mahoatdong })" style="color: #000">@item.hoatdong.ten</a>
+                                <span style="font-size: 1rem">( Từ @item.hoatdong.ngaybatdau.ToString("dd/MM/yyyy") - @item.hoatdong.ngayketthuc.ToString("dd/MM/yyyy") )</span>
+                                @if (!item.dathamgia)
+                                {
+                                    <span style="font-size: 1rem; color: #f00"> - Đang chờ duyệt</span>
+                                }
+                            </h5>
+                            <div class="pl-3">
+                                <p>
+                                    @Html.Raw(item.hoatdong.mota)
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <span style="font-size: 0.9rem">Số buổi tham gia: </span><label class="text-success">@item.diemdanhs.Count(x => x.comat)/@item.diemdanhs.Count() buổi</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span style="font-size: 0.9rem">Số buổi vắng mặt: </span><label class="text-danger">@item.diemdanhs.Count(x => !x.comat) buổi</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span style="font-size: 0.9rem">Số buổi đến muộn: </span><label class="text-warning">@item.diemdanhs.Count(x => x.denmuon) buổi</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                stt++;
+            }
+        </ul>
+    </div>
+</div>

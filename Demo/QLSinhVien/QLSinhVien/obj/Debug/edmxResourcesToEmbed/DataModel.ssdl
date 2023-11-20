@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Ql_SinhVienModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="diemdanh">
+    <Key>
+      <PropertyRef Name="madiemdanh" />
+    </Key>
+    <Property Name="madiemdanh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="mahocsinh_hoatdong" Type="int" Nullable="false" />
+    <Property Name="ngaydiemdanh" Type="date" Nullable="false" />
+    <Property Name="comat" Type="bit" Nullable="false" />
+    <Property Name="denmuon" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="hoatdong">
+    <Key>
+      <PropertyRef Name="mahoatdong" />
+    </Key>
+    <Property Name="mahoatdong" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ten" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="ngaybatdau" Type="date" Nullable="false" />
+    <Property Name="ngayketthuc" Type="date" Nullable="false" />
+    <Property Name="soluongtoida" Type="int" />
+    <Property Name="mota" Type="nvarchar" MaxLength="2000" />
+  </EntityType>
+  <EntityType Name="hocsinh_hoatdong">
+    <Key>
+      <PropertyRef Name="mahs_hd" />
+    </Key>
+    <Property Name="mahs_hd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="mahocsinh" Type="int" Nullable="false" />
+    <Property Name="mahoatdong" Type="int" Nullable="false" />
+    <Property Name="ngaydangky" Type="date" Nullable="false" />
+    <Property Name="dathamgia" Type="bit" Nullable="false" />
+    <Property Name="ngaythamgia" Type="date" />
+  </EntityType>
+  <EntityType Name="nguoidung">
+    <Key>
+      <PropertyRef Name="manguoidung" />
+    </Key>
+    <Property Name="manguoidung" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="hoten" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="tendangnhap" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="matkhau" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="lahocsinh" Type="bit" Nullable="false" />
+    <Property Name="bikhoa" Type="bit" Nullable="false" />
+    <Property Name="tenlop" Type="nvarchar" MaxLength="255" />
+    <Property Name="cccd" Type="varchar" MaxLength="255" />
+    <Property Name="gioitinh" Type="bit" Nullable="false" />
+    <Property Name="ngaysinh" Type="date" Nullable="false" />
+    <Property Name="quocgia" Type="nvarchar" MaxLength="255" />
+    <Property Name="diachi" Type="nvarchar" MaxLength="255" />
+    <Property Name="sdt" Type="varchar" MaxLength="255" />
+    <Property Name="quoctich" Type="nvarchar" MaxLength="255" />
+    <Property Name="chuyennganh" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="FK__diemdanh__mahocs__31EC6D26">
+    <End Role="hocsinh_hoatdong" Type="Self.hocsinh_hoatdong" Multiplicity="1" />
+    <End Role="diemdanh" Type="Self.diemdanh" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hocsinh_hoatdong">
+        <PropertyRef Name="mahs_hd" />
+      </Principal>
+      <Dependent Role="diemdanh">
+        <PropertyRef Name="mahocsinh_hoatdong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__hocsinh_h__mahoa__2E1BDC42">
+    <End Role="hoatdong" Type="Self.hoatdong" Multiplicity="1" />
+    <End Role="hocsinh_hoatdong" Type="Self.hocsinh_hoatdong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hoatdong">
+        <PropertyRef Name="mahoatdong" />
+      </Principal>
+      <Dependent Role="hocsinh_hoatdong">
+        <PropertyRef Name="mahoatdong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__hocsinh_h__mahoc__2D27B809">
+    <End Role="nguoidung" Type="Self.nguoidung" Multiplicity="1" />
+    <End Role="hocsinh_hoatdong" Type="Self.hocsinh_hoatdong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nguoidung">
+        <PropertyRef Name="manguoidung" />
+      </Principal>
+      <Dependent Role="hocsinh_hoatdong">
+        <PropertyRef Name="mahocsinh" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Ql_SinhVienModelStoreContainer">
+    <EntitySet Name="diemdanh" EntityType="Self.diemdanh" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hoatdong" EntityType="Self.hoatdong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hocsinh_hoatdong" EntityType="Self.hocsinh_hoatdong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="nguoidung" EntityType="Self.nguoidung" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__diemdanh__mahocs__31EC6D26" Association="Self.FK__diemdanh__mahocs__31EC6D26">
+      <End Role="hocsinh_hoatdong" EntitySet="hocsinh_hoatdong" />
+      <End Role="diemdanh" EntitySet="diemdanh" />
+    </AssociationSet>
+    <AssociationSet Name="FK__hocsinh_h__mahoa__2E1BDC42" Association="Self.FK__hocsinh_h__mahoa__2E1BDC42">
+      <End Role="hoatdong" EntitySet="hoatdong" />
+      <End Role="hocsinh_hoatdong" EntitySet="hocsinh_hoatdong" />
+    </AssociationSet>
+    <AssociationSet Name="FK__hocsinh_h__mahoc__2D27B809" Association="Self.FK__hocsinh_h__mahoc__2D27B809">
+      <End Role="nguoidung" EntitySet="nguoidung" />
+      <End Role="hocsinh_hoatdong" EntitySet="hocsinh_hoatdong" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

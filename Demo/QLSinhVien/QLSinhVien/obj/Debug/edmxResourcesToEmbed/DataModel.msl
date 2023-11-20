@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Ql_SinhVienModelStoreContainer" CdmEntityContainer="Ql_SinhVienEntities">
+    <EntitySetMapping Name="diemdanhs">
+      <EntityTypeMapping TypeName="Ql_SinhVienModel.diemdanh">
+        <MappingFragment StoreEntitySet="diemdanh">
+          <ScalarProperty Name="madiemdanh" ColumnName="madiemdanh" />
+          <ScalarProperty Name="mahocsinh_hoatdong" ColumnName="mahocsinh_hoatdong" />
+          <ScalarProperty Name="ngaydiemdanh" ColumnName="ngaydiemdanh" />
+          <ScalarProperty Name="comat" ColumnName="comat" />
+          <ScalarProperty Name="denmuon" ColumnName="denmuon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hoatdongs">
+      <EntityTypeMapping TypeName="Ql_SinhVienModel.hoatdong">
+        <MappingFragment StoreEntitySet="hoatdong">
+          <ScalarProperty Name="mahoatdong" ColumnName="mahoatdong" />
+          <ScalarProperty Name="ten" ColumnName="ten" />
+          <ScalarProperty Name="ngaybatdau" ColumnName="ngaybatdau" />
+          <ScalarProperty Name="ngayketthuc" ColumnName="ngayketthuc" />
+          <ScalarProperty Name="soluongtoida" ColumnName="soluongtoida" />
+          <ScalarProperty Name="mota" ColumnName="mota" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hocsinh_hoatdong">
+      <EntityTypeMapping TypeName="Ql_SinhVienModel.hocsinh_hoatdong">
+        <MappingFragment StoreEntitySet="hocsinh_hoatdong">
+          <ScalarProperty Name="mahs_hd" ColumnName="mahs_hd" />
+          <ScalarProperty Name="mahocsinh" ColumnName="mahocsinh" />
+          <ScalarProperty Name="mahoatdong" ColumnName="mahoatdong" />
+          <ScalarProperty Name="ngaydangky" ColumnName="ngaydangky" />
+          <ScalarProperty Name="dathamgia" ColumnName="dathamgia" />
+          <ScalarProperty Name="ngaythamgia" ColumnName="ngaythamgia" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="nguoidungs">
+      <EntityTypeMapping TypeName="Ql_SinhVienModel.nguoidung">
+        <MappingFragment StoreEntitySet="nguoidung">
+          <ScalarProperty Name="manguoidung" ColumnName="manguoidung" />
+          <ScalarProperty Name="hoten" ColumnName="hoten" />
+          <ScalarProperty Name="tendangnhap" ColumnName="tendangnhap" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="matkhau" ColumnName="matkhau" />
+          <ScalarProperty Name="lahocsinh" ColumnName="lahocsinh" />
+          <ScalarProperty Name="bikhoa" ColumnName="bikhoa" />
+          <ScalarProperty Name="tenlop" ColumnName="tenlop" />
+          <ScalarProperty Name="cccd" ColumnName="cccd" />
+          <ScalarProperty Name="gioitinh" ColumnName="gioitinh" />
+          <ScalarProperty Name="ngaysinh" ColumnName="ngaysinh" />
+          <ScalarProperty Name="quocgia" ColumnName="quocgia" />
+          <ScalarProperty Name="diachi" ColumnName="diachi" />
+          <ScalarProperty Name="sdt" ColumnName="sdt" />
+          <ScalarProperty Name="quoctich" ColumnName="quoctich" />
+          <ScalarProperty Name="chuyennganh" ColumnName="chuyennganh" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

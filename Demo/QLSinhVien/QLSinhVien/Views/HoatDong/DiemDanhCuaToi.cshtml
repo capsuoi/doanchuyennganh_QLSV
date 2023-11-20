@@ -1,0 +1,94 @@
+﻿@model hocsinh_hoatdong
+@{
+    ViewBag.Title = "Điểm danh hoạt động " + Model.hoatdong.ten;
+    var day = 1;
+    var date = (DateTime)ViewData["month"];
+    var maxdayValue = DateTime.DaysInMonth(date.Year, date.Month);
+    var startDate = new DateTime(date.Year, date.Month, 1);
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center">Hoạt động @Model.hoatdong.ten</h4>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <input type="date" name="month" class="form-control" value="@date.ToString("yyyy-MM-dd")">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-primary">Kiểm tra</button>
+                        </div>
+                    </div>
+                </form>
+                <h4 class="text-center mt-2">
+                    Tháng @date.Month năm @date.Year
+                </h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-borderless">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Chủ nhật</th>
+                                <th class="text-center">Thứ 2</th>
+                                <th class="text-center">Thứ 3</th>
+                                <th class="text-center">Thứ 4</th>
+                                <th class="text-center">Thứ 5</th>
+                                <th class="text-center">Thứ 6</th>
+                                <th class="text-center">Thứ 7</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Math.Ceiling((decimal)maxdayValue / 7); i++)
+                            {
+                                <tr>
+                                    @for (int j = 0; j <= 6; j++)
+                                    {
+                                        var diemdanh = Model.diemdanhs.FirstOrDefault(x => x.ngaydiemdanh.Day == day && x.ngaydiemdanh.Month == startDate.Month && x.ngaydiemdanh.Year == startDate.Year);
+                                        <td class="text-center dayview @(diemdanh == null ? "" : !diemdanh.comat ? "danger" : diemdanh.denmuon ? "warning" : "success")">
+                                            <div>
+                                                @if ((int)startDate.DayOfWeek == j || day > 1)
+                                                {
+                                                    <span>@(day > maxdayValue ? "" : day.ToString())</span>
+                                                    day++;
+                                                }
+                                            </div>
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center">Chú thích: </h4>
+            </div>
+            <div class="card-body">
+                <ul>
+                    <li>
+                        <div class="exam success"></div>
+                        <label>Ngày có mặt</label>
+                    </li>
+                    <li>
+                        <div class="exam warning"></div>
+                        <label>Ngày đến muộn</label>
+                    </li>
+                    <li>
+                        <div class="exam danger"></div>
+                        <label>Ngày vắng mặt</label>
+                    </li>
+                </ul>
+                <p><span style="color: red">Chú ý: </span> Chỉ đánh dấu những ngày diễn ra hoạt động!</p>
+            </div>
+        </div>
+    </div>
+</div>
